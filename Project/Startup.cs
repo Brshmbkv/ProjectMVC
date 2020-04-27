@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project.Models;
 
 namespace Project
 {
@@ -18,6 +19,8 @@ namespace Project
         {
             services.AddControllersWithViews();
             services.AddMvc();
+            services.AddScoped<ICourseRepository, MockCourseRepository>();
+            services.AddScoped<ICategoryRepository, MockCategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

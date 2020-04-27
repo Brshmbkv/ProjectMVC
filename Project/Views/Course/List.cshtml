@@ -1,0 +1,11 @@
+﻿@model CoursesListViewModel
+
+<h1>@Model.CurrentCategory</h1>
+@foreach (var course in Model.Courses)
+{
+    <div>
+        <h2>@course.Name</h2>
+        <h3>@course.Price.ToString("c")</h3>
+        <h4>@course.Category.CategoryName</h4>
+    </div>
+}
