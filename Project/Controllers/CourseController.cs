@@ -29,5 +29,13 @@ namespace Project.Controllers
             return View(coursesListViewModel);
         }
 
+        public IActionResult Details(int id)
+        {
+            var course = _courseRepository.GetCourseById(id);
+            if (course == null)
+                return NotFound();
+            return View(course);
+        }
+
     }
 }

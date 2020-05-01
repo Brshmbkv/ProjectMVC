@@ -1,11 +1,27 @@
 ﻿@model CoursesListViewModel
 
-<h1>@Model.CurrentCategory</h1>
-@foreach (var course in Model.Courses)
-{
-    <div>
-        <h2>@course.Name</h2>
-        <h3>@course.Price.ToString("c")</h3>
-        <h4>@course.Category.CategoryName</h4>
+<div class="container">
+    <h1>@Model.CurrentCategory</h1>
+    <div class="row row-cols-1 row-cols-md-3">
+        @foreach (var course in Model.Courses)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="@course.ImageUrl" alt="" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a asp-controller ="Course" asp-action="Details" asp-route-id="@course.CourseId">@course.Name</a>
+                        </h5>
+                        <p class="card-text">
+                            @course.ShortDescription
+                        </p>
+                        <p class="card-text">
+                            @course.Price.ToString("c");
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>
+
