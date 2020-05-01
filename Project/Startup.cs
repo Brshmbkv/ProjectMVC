@@ -28,10 +28,12 @@ namespace Project
         {
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
             services.AddControllersWithViews();
-            services.AddMvc();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSession();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +46,8 @@ namespace Project
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession(); 
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
