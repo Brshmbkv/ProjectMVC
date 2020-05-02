@@ -6,6 +6,7 @@
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/content/StyleSheet.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <!--<script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>-->
 
@@ -24,6 +25,15 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Course" asp-action="List">Courses</a>
                     </li>
+                    
+                    @await Component.InvokeAsync("ShoppingCartSummary")
+                    
+                    @await Component.InvokeAsync("CategoryMenu") 
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                    </li>
+                    
                 </ul>
             </div>
         </nav>

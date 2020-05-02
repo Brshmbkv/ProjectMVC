@@ -21,12 +21,36 @@ namespace Project.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public ViewResult List()
+        //public ViewResult List()
+        //{
+        //    CoursesListViewModel coursesListViewModel = new CoursesListViewModel();
+        //    coursesListViewModel.Courses = _courseRepository.AllCourses;
+        //    coursesListViewModel.CurrentCategory = "Courses category";
+        //    return View(coursesListViewModel);
+        //}
+
+        public ViewResult List(string category)
         {
-            CoursesListViewModel coursesListViewModel = new CoursesListViewModel();
-            coursesListViewModel.Courses = _courseRepository.AllCourses;
-            coursesListViewModel.CurrentCategory = "Courses category";
-            return View(coursesListViewModel);
+            IEnumerable<Course> courses;
+            string currentCategory;
+
+            if (string.IsNullOrEmpty(category))
+            {
+                courses = _courseRepository.AllCourses.OrderBy(c => c.CourseId);
+                currentCategory = "All Courses";
+            }
+            else
+            {
+                courses = _courseRepository.AllCourses.Where(c => c.Category.CategoryName == category)
+                    .OrderBy(c => c.CourseId);
+                currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.CategoryName == category)?.CategoryName;
+            }
+
+            return View(new CoursesListViewModel
+            {
+                Courses = courses,
+                CurrentCategory = currentCategory
+            });     
         }
 
         public IActionResult Details(int id)
