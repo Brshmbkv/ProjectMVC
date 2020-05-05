@@ -12,7 +12,7 @@ namespace Project.Models
         public string Name { get; set; }
         public string ShortDescription { get; set; } 
         [NotMapped]
-        public List<string> WhatYouWillLearn { get; set; }
+        public List<WhatYouWillLearn> WhatYouWillLearn { get; set; }
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
         public string ImageThumbnailUrl { get; set; }

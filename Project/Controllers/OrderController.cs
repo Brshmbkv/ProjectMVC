@@ -9,7 +9,7 @@ using Project.Models;
 
 namespace Project.Controllers
 {
-
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;

@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -16,11 +15,12 @@ namespace Project.Models
 
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<WhatYouWillLearn> WhatYouWillLearns { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
-
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,13 +36,13 @@ namespace Project.Models
                 Name = "The Complete JavaScript Course 2020: Build Real Projects!",
                 Price = 20M,
                 ShortDescription = "Master JavaScript with the most complete course! Projects, challenges, quizzes, JavaScript ES6+, OOP, AJAX, Webpack",
-                WhatYouWillLearn = new List<string>
+                WhatYouWillLearn = new List<WhatYouWillLearn>
                 {
-                    "Go from a total beginner to an advanced JavaScript developer",
-                    "JavaScript and programming fundamentals: variables, boolean logic, if/else, loops, functions, arrays, etc.",
-                    "Asynchronous JavaScript: The event loop, promises, async/await, AJAX and APIs",
-                    "Code 3 beautiful real-world apps with both ES5 and ES6+ (no boring toy apps here)",
-                    "Modern JavaScript for 2020: NPM, Webpack, Babel and ES6 modules"
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 1, CourseId = 1, Text = "Go from a total beginner to an advanced JavaScript developer" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 2, CourseId = 1, Text = "JavaScript and programming fundamentals: variables, boolean logic, if/else, loops, functions, arrays, etc." },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 3, CourseId = 1, Text = "Asynchronous JavaScript: The event loop, promises, async/await, AJAX and APIs" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 4, CourseId = 1, Text = "Code 3 beautiful real-world apps with both ES5 and ES6+ (no boring toy apps here)" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 5, CourseId = 1, Text = "Modern JavaScript for 2020: NPM, Webpack, Babel and ES6 modules" }
                 },
                 ImageThumbnailUrl = "https://img-a.udemycdn.com/course/240x135/851712_fc61_5.jpg",
                 ImageUrl = "https://img-a.udemycdn.com/course/750x422/437398_46c3_9.jpg",
@@ -57,11 +57,11 @@ namespace Project.Models
                 Name = "Modern JavaScript From The Beginning",
                 Price = 39M,
                 ShortDescription = "Learn and build projects with pure JavaScript (No frameworks or libraries)",
-                WhatYouWillLearn = new List<string>
+                WhatYouWillLearn = new List<WhatYouWillLearn>
                 {
-                    "Modular learning sections & 10 real world projects with pure JavaScript",
-                    "Master the DOM(document object model) WITHOUT jQuery ",
-                    "Asynchronous programming with Ajax, Fetch API, Promises & Async / Await"
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 1, CourseId = 2, Text = "Modular learning sections & 10 real world projects with pure JavaScript" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 2, CourseId = 2, Text = "Master the DOM(document object model) WITHOUT jQuery " },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 3, CourseId = 2, Text = "Asynchronous programming with Ajax, Fetch API, Promises & Async / Await" }
                 },
                 ImageThumbnailUrl = "https://img-a.udemycdn.com/course/240x135/1463348_52a4_2.jpg",
                 ImageUrl = "https://img-a.udemycdn.com/course/750x422/1463348_52a4_2.jpg",
@@ -76,13 +76,13 @@ namespace Project.Models
                 Name = "The Complete Android N Developer Course",
                 Price = 19M,
                 ShortDescription = "Learn Android App Development with Android 7 Nougat by building real apps including Uber, Whatsapp and Instagram!",
-                WhatYouWillLearn = new List<string>
+                WhatYouWillLearn = new List<WhatYouWillLearn>
                 {
-                    "Real-world skills to build real-world websites: professional, beautiful and truly responsive websites",
-                    "A huge project that will teach you everything you need to know to get started with HTML5 and CSS3",
-                    "The proven 7 real - world steps from complete scratch to a fully functional and optimized website",
-                    "Simple - to - use web design guidelines and tips to make your website stand out from the crowd",
-                    "Learn super cool jQuery effects like animations" 
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 1, CourseId = 3, Text = "Real-world skills to build real-world websites: professional, beautiful and truly responsive websites" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 2, CourseId = 3, Text = "A huge project that will teach you everything you need to know to get started with HTML5 and CSS3" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 3, CourseId = 3, Text = "The proven 7 real - world steps from complete scratch to a fully functional and optimized website" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 4, CourseId = 3, Text = "Simple - to - use web design guidelines and tips to make your website stand out from the crowd" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 5, CourseId = 3, Text = "Learn super cool jQuery effects like animations" }
                 },
                 ImageThumbnailUrl = "https://img-a.udemycdn.com/course/240x135/951618_0839_2.jpg",
                 ImageUrl = "https://coursedrive.us/wp-content/uploads/2020/02/The-Complete-Android-N-Developer-Course-Drive.jpg",
@@ -97,12 +97,12 @@ namespace Project.Models
                 Name = "The easiest way to learn modern web design, HTML5 and CSS3 step-by-step from scratch. Design AND code a huge project",
                 Price = 78M,
                 ShortDescription = "The easiest way to learn modern web design, HTML5 and CSS3 step-by-step from scratch. Design AND code a huge project",
-                WhatYouWillLearn = new List<string>
+                WhatYouWillLearn = new List<WhatYouWillLearn>
                 {
-                    "Real-world skills to build real-world websites: professional, beautiful and truly responsive websites",
-                    "The proven 7 real-world steps from complete scratch to a fully functional and optimized website",
-                    "A huge project that will teach you everything you need to know to get started with HTML5 and CSS3",
-                    "Simple-to-use web design guidelines and tips to make your website stand out from the crowd"
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 1, CourseId = 4, Text = "Real-world skills to build real-world websites: professional, beautiful and truly responsive websites" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 2, CourseId = 4, Text = "The proven 7 real-world steps from complete scratch to a fully functional and optimized website" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 3, CourseId = 4, Text = "A huge project that will teach you everything you need to know to get started with HTML5 and CSS3" },
+                    new WhatYouWillLearn{ WhatYouWillLearnId = 4, CourseId = 4, Text = "Simple-to-use web design guidelines and tips to make your website stand out from the crowd" }
                 },
                 ImageThumbnailUrl = "https://img-a.udemycdn.com/course/240x135/437398_46c3_9.jpg",
                 ImageUrl = "https://img-a.udemycdn.com/course/750x422/437398_46c3_9.jpg",
