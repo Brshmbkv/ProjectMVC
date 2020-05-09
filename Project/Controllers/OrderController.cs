@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,19 @@ namespace Project.Controllers
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
         }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsCountryValid(string country)
+        {
+            var validCountry = "Kazakhstan";
+            if (country.ToLower().Equals(validCountry.ToLower()))
+            {
+                return Json($"Sorry but we cannot sell this courses in your country({country})!");
+                
+            }
+            return Json(true);
+        }
+
 
         public IActionResult Checkout()
         {

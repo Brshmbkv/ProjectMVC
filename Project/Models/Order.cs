@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -41,8 +42,9 @@ namespace Project.Models
         [StringLength(10)]
         public string State { get; set; }
 
-        [Required(ErrorMessage = "Please enter your country")]
+        //[Required(ErrorMessage = "Please enter your country")]
         [StringLength(50)]
+        [Remote(action:"IsCountryValid", controller:"Order")]
         public string Country { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number")]
