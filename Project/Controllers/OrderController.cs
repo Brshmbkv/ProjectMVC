@@ -10,7 +10,7 @@ using Project.Models;
 
 namespace Project.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Users")]
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
@@ -26,10 +26,9 @@ namespace Project.Controllers
         public IActionResult IsCountryValid(string country)
         {
             var validCountry = "Kazakhstan";
-            if (country.ToLower().Equals(validCountry.ToLower()))
+            if (!country.ToLower().Equals(validCountry.ToLower()))
             {
                 return Json($"Sorry but we cannot sell this courses in your country({country})!");
-                
             }
             return Json(true);
         }

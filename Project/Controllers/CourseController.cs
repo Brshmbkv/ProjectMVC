@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Project.Models;
 using Project.ViewModels;
 
@@ -14,11 +16,13 @@ namespace Project.Controllers
     {
         private readonly ICourseRepository _courseRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly AppDbContext _appDbContext;
 
-        public CourseController(ICourseRepository courseRepository, ICategoryRepository categoryRepository)
+        public CourseController(ICourseRepository courseRepository, ICategoryRepository categoryRepository, AppDbContext appDbContext)
         {
             _courseRepository = courseRepository;
             _categoryRepository = categoryRepository;
+            _appDbContext = appDbContext;
         }
 
         //public ViewResult List()
@@ -61,5 +65,7 @@ namespace Project.Controllers
             return View(course);
         }
 
+
+        
     }
 }

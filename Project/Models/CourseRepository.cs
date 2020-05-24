@@ -34,5 +34,11 @@ namespace Project.Models
         {
             return _appDbContext.Courses.FirstOrDefault(c => c.CourseId == courseId);
         }
+
+        public void Add(Course course)
+        {
+            _appDbContext.Courses.Add(course);
+            _appDbContext.SaveChanges();
+        }
     }
 }

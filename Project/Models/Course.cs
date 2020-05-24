@@ -18,9 +18,6 @@ namespace Project.Models
         public string Name { get; set; }
         [StringLength(200)]
         public string ShortDescription { get; set; } 
-
-        [NotMapped]
-        public List<WhatYouWillLearn> WhatYouWillLearn { get; set; }
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
         public string ImageThumbnailUrl { get; set; }
@@ -28,6 +25,7 @@ namespace Project.Models
         public bool InStock { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public ICollection<WhatYouWillLearn> WhatYouWillLearn { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
