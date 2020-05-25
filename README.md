@@ -14,5 +14,8 @@ Features:
   4. Database integration
   5. Validation
   6. Login, Register and Logout pages
- 
+  7. Added Roles(Admin, User) and default user admin
+  
+  email:admin@gmail.com
+  password:!Admin123
 
