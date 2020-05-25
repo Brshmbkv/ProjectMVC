@@ -11,6 +11,12 @@
             </h3><br />
             <h5 class="card-text">@Model.ShortDescription</h5>
             <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-courseId="@Model.CourseId">Add to cart</a>
+            @if(User.IsInRole("Admin"))
+            { { } }
+            <form asp-action="Delete" asp-route-id="@Model.CourseId">
+                <input type="hidden" asp-for="@Model.CourseId" />
+                <button class="btn btn-danger" style="margin-top: 10px;">Delete</button>
+            </form>
         </div>
     </div>
 </div>

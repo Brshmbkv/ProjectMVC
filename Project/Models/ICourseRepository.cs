@@ -10,6 +10,11 @@ namespace Project.Models
         IEnumerable<Course> AllCourses { get; }
         IEnumerable<Course> CoursesOfTheWeek { get; }
         Course GetCourseById(int courseId);
+
+        void Create(Course course);
+        void Read(int id);
+        void Update(Course course);
+        void Delete(Course course);
     }
 }
 

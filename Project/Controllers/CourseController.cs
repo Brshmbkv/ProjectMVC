@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Project.Models;
 using Project.ViewModels;
@@ -65,7 +67,65 @@ namespace Project.Controllers
             return View(course);
         }
 
+        [Authorize(Roles ="Admin")]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Categories = _categoryRepository.AllCategories.Select(li => new SelectListItem
+            {
+                Text = li.CategoryName,
+                Value = li.CategoryId.ToString()
+            });
+            return View();
+        }
 
-        
+        [Authorize(Roles ="Admin")]
+        [HttpPost]
+        public IActionResult Create(Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                if(!course.IsCourseOfTheWeek && course.InStock)
+                {
+                    course.IsCourseOfTheWeek = false;
+                    course.InStock = false;
+                }else if (!course.IsCourseOfTheWeek)
+                {
+                    course.IsCourseOfTheWeek = false;
+                }
+                else if (!course.InStock)
+                {
+                    course.InStock = false;
+                }
+               
+                _courseRepository.Create(course);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(course);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            return View(_courseRepository.AllCourses.Where(s => s.CourseId == id).First());
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult Update(Course course)
+        {
+            _courseRepository.Update(course);
+            return RedirectToAction("Index", "Home");
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var course = _courseRepository.GetCourseById(id);
+            _courseRepository.Delete(course);
+
+            return RedirectToAction("Index", "Home");
+
+        }
     }
 }

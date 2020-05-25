@@ -9,7 +9,6 @@ namespace Project.Models
     public class IsCourseExistAttribute : ValidationAttribute
     {
         private readonly CourseRepository _courseRepository;
-
         public string getErrorMessage() => "This course is already exists!";
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
